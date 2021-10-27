@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**"
+               // "C:/Users/desde/Desktop/SDL_CommandPattern/SDLCommandPattern",
+               // "C:/SDL2-2.0.16/i686_64-w64-mingw32/include"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "C:/msys64/mingw64/bin/gcc.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "gcc-x64"
+        }
+    ],
+    "version": 4
+}
