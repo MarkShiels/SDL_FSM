@@ -1,4 +1,4 @@
-#include "../include/Events.h"
+
 #include <iostream>
 #include "../include/IdlePlayerState.h"
 #include "../include/AttackPlayerState.h"
@@ -7,9 +7,8 @@
 #include "../include/AccendLadderPlayerState.h"
 #include "../include/DecendLadderPlayerState.h"
 #include "../include/JumpPlayerState.h"
-/*
-#include <JumpPlayerState.h>
-#include <DiedPlayerState.h>*/
+#include "../include/DiedPlayerState.h"
+
 
 
 PlayerState* IdlePlayerState::handleInput(SDL_Event* input) {
@@ -37,6 +36,10 @@ PlayerState* IdlePlayerState::handleInput(SDL_Event* input) {
 	else if (input->key.keysym.sym == SDLK_d)
 	{
 		 	return new DecendLadderPlayerState();
+	}
+	else if (input->key.keysym.sym == SDLK_x)
+	{
+		 	return new DiedPlayerState();
 	}
 
 	return nullptr;

@@ -21,6 +21,8 @@ public:
 	void returnToIdle();
 	int  getCurrentFrame();
 	void returnToLadder();
+	void setAlive(bool t_bool);
+	bool getAlive();
 
 private:
 
@@ -29,6 +31,7 @@ private:
     int m_frameDelay{100};	
 	PlayerState* m_state;
 	AnimatedSprite m_animatedSprite;
+	bool m_alive;
 };
 #endif
 

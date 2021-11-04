@@ -85,6 +85,16 @@ AnimatedSprite& Player::getAnimatedSprite()
 	return m_animatedSprite;
 }
 
+bool Player::getAlive()
+{
+	return m_alive;
+}
+
+void Player::setAlive(bool t_bool)
+{
+	m_alive = t_bool;
+}
+
 AnimatedSprite& Player::getAnimatedSpriteFrame() 
 {
 	int frame = m_animatedSprite.getCurrentFrame();

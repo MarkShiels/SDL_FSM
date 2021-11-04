@@ -2,9 +2,9 @@
 
 #include "../include/JumpPlayerState.h"
 #include "../include/JumpAttackPlayerState.h"
+#include "../include/JumpThrowAttackPlayerState.h"
 
 //#include "../include/DiedPlayerState.h"
-//#include "../include/JumpThrowAttackPlayerState.h"
 //#include "../include/GlidePlayerState.h"
 
 PlayerState* JumpPlayerState::handleInput(SDL_Event* input)
@@ -12,6 +12,10 @@ PlayerState* JumpPlayerState::handleInput(SDL_Event* input)
 	if (input->key.keysym.sym == SDLK_SPACE)
 	{
 		 	return new JumpAttackPlayerState();
+	}
+	else if (input->key.keysym.sym == SDLK_t)
+	{
+		 	return new JumpThrowAttackPlayerState();
 	}
 	return nullptr;
 }
