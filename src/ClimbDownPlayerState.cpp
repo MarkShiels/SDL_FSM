@@ -1,47 +1,50 @@
 #include "../include/Events.h"
 
 #include "../include/ClimbDownPlayerState.h"
-
-#include "../include/ClimbPausePlayerState.h"
 #include "../include/AccendLadderPlayerState.h"
+#include "../include/RunRightPlayerState.h"
 
 
-PlayerState* ClimbDownPlayerState::handleInput(gpp::Events& input)
+PlayerState* ClimbDownPlayerState::handleInput(SDL_Event* input)
 {
-	if (input.getCurrent() == gpp::Events::Event::MOVE_DOWN_STOP_EVENT)
+	if (input->key.keysym.sym == SDLK_RIGHT)
 	{
-		DEBUG_MSG("ClimbDownPlayerState -> ClimbPausePlayerState");
-		return new ClimbPausePlayerState();
-	}
-	else if (input.getCurrent() == gpp::Events::Event::HIT_LADDER_BOTTOM_EVENT)
-	{
-		DEBUG_MSG("ClimbDownPlayerState -> AccendLadderPlayerState");
-		return new AccendLadderPlayerState();
+		 	return new RunRightPlayerState();
 	}
 	return nullptr;
 }
-void ClimbDownPlayerState::update(Player& player) {}
+
+bool ClimbDownPlayerState::repeat()
+{
+	return m_repeat;
+}
+
+bool ClimbDownPlayerState::onLadder()
+{
+	return m_onLadder;
+}
+
+void ClimbDownPlayerState::update(Player& player) 
+{}
+
 void ClimbDownPlayerState::enter(Player& player)
 {
-	DEBUG_MSG("Entering ClimbDownPlayerState");
-	// Climb Down Animated Sprite
 	player.getAnimatedSprite().clearFrames();
 
-	player.getAnimatedSprite().addFrame(sf::IntRect(1608, 0, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(1890, 0, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(2172, 0, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(1608, 464, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(1890, 464, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(2172, 464, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(1608, 928, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(1890, 928, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(2172, 928, 282, 464));
-	player.getAnimatedSprite().addFrame(sf::IntRect(1608, 1392, 282, 464));
+	player.getAnimatedSprite().addFrame(1608, 0, 282, 464);
+	player.getAnimatedSprite().addFrame(1890, 0, 282, 464);
+	player.getAnimatedSprite().addFrame(2172, 0, 282, 464);
+	player.getAnimatedSprite().addFrame(1608, 464, 282, 464);
+	player.getAnimatedSprite().addFrame(1890, 464, 282, 464);
+	player.getAnimatedSprite().addFrame(2172, 464, 282, 464);
+	player.getAnimatedSprite().addFrame(1608, 928, 282, 464);
+	player.getAnimatedSprite().addFrame(1890, 928, 282, 464);
+	player.getAnimatedSprite().addFrame(2172, 928, 282, 464);
+	player.getAnimatedSprite().addFrame(1608, 1392, 282, 464);
 
-	player.getAnimatedSprite().setTime(seconds(0.05f));
 
 }
 void ClimbDownPlayerState::exit(Player& player) 
 {
-	DEBUG_MSG("Exiting ClimbDownPlayerState");
+
 }

@@ -1,40 +1,55 @@
 #include "../include/Events.h"
 
 #include "../include/DecendLadderPlayerState.h"
-
-#include "../include/ClimbDownPlayerState.h"
+#include "../include/IdlePlayerState.h"
 #include "../include/RunRightPlayerState.h"
-#include "../include/DiedPlayerState.h"
+#include "../include/ClimbDownPlayerState.h"
+#include "../include/ClimbUpPlayerState.h"
+//#include "../include/DiedPlayerState.h"
 
-PlayerState* DecendLadderPlayerState::handleInput(gpp::Events& input)
+PlayerState* DecendLadderPlayerState::handleInput(SDL_Event* input)
 {
-	if (input.getCurrent() == gpp::Events::Event::MOVE_DOWN_START_EVENT)
+	if (input->key.keysym.sym == SDLK_DOWN)
 	{
-		DEBUG_MSG("DecendLadderPlayerState -> ClimbDownPlayerState");
-		return new ClimbDownPlayerState();
+		 	return new ClimbDownPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::RUN_RIGHT_START_EVENT)
+	else if (input->key.keysym.sym == SDLK_UP)
 	{
-		DEBUG_MSG("DecendLadderPlayerState -> RunRightPlayerState");
-		return new RunRightPlayerState();
+		 	return new ClimbUpPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::DIED_EVENT) {
-		DEBUG_MSG("DecendLadderPlayerState -> DiedPlayerState");
-		return new DiedPlayerState();
+	else if (input->key.keysym.sym == SDLK_d)
+	{
+		 	return new IdlePlayerState();
+	}
+	else if (input->key.keysym.sym == SDLK_RIGHT)
+	{
+		 	return new RunRightPlayerState();
 	}
 	return nullptr;
 }
-void DecendLadderPlayerState::update(Player& player) {}
+
+bool DecendLadderPlayerState::repeat()
+{
+	return m_repeat;
+}
+
+bool DecendLadderPlayerState::onLadder()
+{
+	return m_onLadder;
+}
+
+void DecendLadderPlayerState::update(Player& player) 
+{}
+
 void DecendLadderPlayerState::enter(Player& player)
 {
-	DEBUG_MSG("Entering DecendLadderPlayerState");
+
 	player.getAnimatedSprite().clearFrames();
 
-	player.getAnimatedSprite().addFrame(sf::IntRect(1608, 464, 282, 464));
+	player.getAnimatedSprite().addFrame(1608, 464, 282, 464);
 
-	player.getAnimatedSprite().setTime(seconds(0.05f));
 }
 void DecendLadderPlayerState::exit(Player& player)
 {
-	DEBUG_MSG("Exiting DecendLadderPlayerState");
+
 }

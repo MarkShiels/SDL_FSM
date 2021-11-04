@@ -1,13 +1,15 @@
-#include "../include/Events.h"
 
 #include "../include/ThrowAttackPlayerState.h"
 
-#include "../include/RunRightPlayerState.h"
-#include "../include/IdlePlayerState.h"
-#include "../include/DiedPlayerState.h"
+/*
+#include <RunRightPlayerState.h>
+#include <IdlePlayerState.h>
+#include <DiedPlayerState.h>
+*/
 
-PlayerState* ThrowAttackPlayerState::handleInput(gpp::Events& input)
+PlayerState* ThrowAttackPlayerState::handleInput(SDL_Event* input)
 {
+	/*
 	if (input.getCurrent() == gpp::Events::Event::RUN_RIGHT_START_EVENT)
 	{
 		DEBUG_MSG("AttackPlayerState -> RunRightPlayerState");
@@ -22,28 +24,37 @@ PlayerState* ThrowAttackPlayerState::handleInput(gpp::Events& input)
 		DEBUG_MSG("ThrowAttackPlayerState -> DiedPlayerState");
 		return new DiedPlayerState();
 	}
+	*/
 	return nullptr;
 }
+
+bool ThrowAttackPlayerState::repeat()
+{
+	return m_repeat;
+}
+
+bool ThrowAttackPlayerState::onLadder()
+{
+	return m_onLadder;
+}
+
 void ThrowAttackPlayerState::update(Player& player) {}
 void ThrowAttackPlayerState::enter(Player& player)
 {
-	DEBUG_MSG("Entering AttackPlayerState");
 	player.getAnimatedSprite().clearFrames();
 
-	player.getAnimatedSprite().addFrame(sf::IntRect(6075, 0, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6452, 0, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6829, 0, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6075, 451, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6452, 451, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6829, 451, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6075, 902, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6452, 902, 377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6829, 902,377, 451));
-	player.getAnimatedSprite().addFrame(sf::IntRect(6075, 1353, 377, 451));
+	player.getAnimatedSprite().addFrame(6075, 0, 377, 451);
+	player.getAnimatedSprite().addFrame(6452, 0, 377, 451);
+	player.getAnimatedSprite().addFrame(6829, 0, 377, 451);
+	player.getAnimatedSprite().addFrame(6075, 451, 377, 451);
+	player.getAnimatedSprite().addFrame(6452, 451, 377, 451);
+	player.getAnimatedSprite().addFrame(6829, 451, 377, 451);
+	player.getAnimatedSprite().addFrame(6075, 902, 377, 451);
+	player.getAnimatedSprite().addFrame(6452, 902, 377, 451);
+	player.getAnimatedSprite().addFrame(6829, 902,377, 451);
+	player.getAnimatedSprite().addFrame(6075, 1353, 377, 451);
 
-	player.getAnimatedSprite().setTime(seconds(0.03f));
 }
 void ThrowAttackPlayerState::exit(Player& player)
 {
-	DEBUG_MSG("Exiting AttackPlayerState");
 }

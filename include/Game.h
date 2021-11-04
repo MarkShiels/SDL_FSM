@@ -1,8 +1,9 @@
-#include <SDL.h>
+//#include <SDL.h>
 #include <SDL_ttf.h>
 #include <SDL_surface.h>
+#include <SDL_image.h>
 #include <iostream>
-#include "../include/InputHandler.h"
+#include "../include/Player.h"
 
 class Game
 {
@@ -12,32 +13,28 @@ public:
     ~Game();
     void run();
 
+    Player* m_player;
+    AnimatedSprite m_sprite;
+
 private:
 
     void processEvents(SDL_Event event);
     void update();
     void render();
-
+    void loadMedia();
     void cleanUp();
-
-    InputHandler inputHandler;
 
     bool m_gameIsRunning;
     float screenSizeX = 680;
     float screenSizeY = 480;
     
-   SDL_Renderer* m_renderer;
-   SDL_Rect rect;
-   SDL_Rect rect2;
-   SDL_Rect rect3;
-   SDL_Rect rect4;
-   SDL_Rect clayMessage;
-   SDL_Rect legoMessage;
-   SDL_Rect woodMessage;
-   SDL_Rect concreteMessage;
-   SDL_Texture* messageTxtr;
-   SDL_Surface* messageSurface;
-   TTF_Font* highman;
-   SDL_Color white;
+    int m_currentFrame;
+    int m_currentTime;
+    int m_frameDelay{100};
+
+    SDL_Renderer*   m_renderer;
+    SDL_Texture*    m_spriteSheet;
+    SDL_Rect*       m_spriteSize;
+    PlayerState* m_currentPlayerState;
 
 };

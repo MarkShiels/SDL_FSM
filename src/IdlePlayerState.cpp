@@ -1,73 +1,79 @@
 #include "../include/Events.h"
-
+#include <iostream>
 #include "../include/IdlePlayerState.h"
-
 #include "../include/AttackPlayerState.h"
-#include "../include/ThrowAttackPlayerState.h"
 #include "../include/RunRightPlayerState.h"
+#include "../include/ThrowAttackPlayerState.h"
 #include "../include/AccendLadderPlayerState.h"
 #include "../include/DecendLadderPlayerState.h"
 #include "../include/JumpPlayerState.h"
-#include "../include/DiedPlayerState.h"
+/*
+#include <JumpPlayerState.h>
+#include <DiedPlayerState.h>*/
 
 
-PlayerState* IdlePlayerState::handleInput(gpp::Events& input) {
+PlayerState* IdlePlayerState::handleInput(SDL_Event* input) {
 
-	if (input.getCurrent() == gpp::Events::Event::ATTACK_START_EVENT)
+	if(input->key.keysym.sym == SDLK_SPACE)
 	{
-		DEBUG_MSG("IdlePlayerState -> AttackPlayerState");
 		return new AttackPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::THROW_START_EVENT)
+	else if (input->key.keysym.sym == SDLK_RIGHT)
 	{
-		DEBUG_MSG("IdlePlayerState -> ThrowAttackPlayerState");
-		return new ThrowAttackPlayerState();
+		 	return new RunRightPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::RUN_RIGHT_START_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> RunRightPlayerState");
-		return new RunRightPlayerState();
+	else if (input->key.keysym.sym == SDLK_UP)
+	{
+		 	return new JumpPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::HIT_LADDER_BOTTOM_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> AccendLadderPlayerState");
-		return new AccendLadderPlayerState();
+	else if (input->key.keysym.sym == SDLK_t)
+	{
+		 	return new ThrowAttackPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::HIT_LADDER_TOP_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> DecendLadderPlayerState");
-		return new DecendLadderPlayerState();
+	else if (input->key.keysym.sym == SDLK_a)
+	{
+		 	return new AccendLadderPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::JUMP_UP_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> JumpPlayerState");
-		return new JumpPlayerState();
+	else if (input->key.keysym.sym == SDLK_d)
+	{
+		 	return new DecendLadderPlayerState();
 	}
-	else if (input.getCurrent() == gpp::Events::Event::DIED_EVENT) {
-		DEBUG_MSG("IdlePlayerState -> DiedPlayerState");
-		return new DiedPlayerState();
-	}
+
 	return nullptr;
 }
 
-void IdlePlayerState::update(Player& player) {}
+bool IdlePlayerState::onLadder()
+{
+	return m_onLadder;
+}
+
+void IdlePlayerState::update(Player& player) 
+{}
 
 void IdlePlayerState::enter(Player& player) 
 {
-	DEBUG_MSG("Entering IdlePlayerState");
+	
 	player.getAnimatedSprite().clearFrames();
 
-	player.getAnimatedSprite().addFrame(sf::IntRect(3900, 0, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4132, 0, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4364, 0, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(3900, 439, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4132, 439, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4364, 439, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(3900, 878, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4132, 878, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4364, 878, 232, 439));
-	player.getAnimatedSprite().addFrame(sf::IntRect(3900, 1317, 232, 439));
-	
-	player.getAnimatedSprite().setTime(seconds(0.05f));
+	player.getAnimatedSprite().addFrame(3900, 0, 232, 439);
+	player.getAnimatedSprite().addFrame(4132, 0, 232, 439);
+	player.getAnimatedSprite().addFrame(4364, 0, 232, 439);
+	player.getAnimatedSprite().addFrame(3900, 439, 232, 439);
+	player.getAnimatedSprite().addFrame(4132, 439, 232, 439);
+	player.getAnimatedSprite().addFrame(4364, 439, 232, 439);
+	player.getAnimatedSprite().addFrame(3900, 878, 232, 439);
+	player.getAnimatedSprite().addFrame(4132, 878, 232, 439);
+	player.getAnimatedSprite().addFrame(4364, 878, 232, 439);
+	player.getAnimatedSprite().addFrame(3900, 1317, 232, 439);
+
+}
+
+bool IdlePlayerState::repeat()
+{
+	return m_repeat;
 }
 
 void IdlePlayerState::exit(Player& player)
 {
-	DEBUG_MSG("Exiting IdlePlayerState");
+
 }

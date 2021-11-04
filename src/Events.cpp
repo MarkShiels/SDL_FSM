@@ -1,15 +1,17 @@
 #include "../include/Events.h"
 
-gpp::Events::Events()
+StateEvents::StateEvents()
 {
-	m_current = Event::NONE;
+	m_current = stateEvent::NONE;
 }
-gpp::Events::~Events() {}
+StateEvents::~StateEvents() {}
 
-void gpp::Events::setCurrent(gpp::Events::Event event) {
+void StateEvents::setCurrent(stateEvent event) 
+{
 	m_current = event;
 }
 
-gpp::Events::Event gpp::Events::getCurrent() {
+StateEvents::stateEvent StateEvents::getCurrent()
+{
 	return m_current;
 }

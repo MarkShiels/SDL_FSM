@@ -1,18 +1,22 @@
-#include <Events.h>
+#include "../include/Events.h"
 
-#include <RunRightPlayerState.h>
+#include "../include/RunRightPlayerState.h"
+#include "../include/AttackPlayerState.h"
+#include "../include/IdlePlayerState.h"
 
-#include <AttackPlayerState.h>
-#include <ThrowAttackPlayerState.h>
-#include <IdlePlayerState.h>
-#include <AccendLadderPlayerState.h>
-#include <DecendLadderPlayerState.h>
-#include <JumpPlayerState.h>
-#include <DiedPlayerState.h>
-#include <SlidePlayerState.h>
+/*
+#include "../include/ThrowAttackPlayerState.h"
+#include "../include/AccendLadderPlayerState.h"
+#include "../include/DecendLadderPlayerState.h"
+#include "../include/JumpPlayerState.h"
+#include "../include/DiedPlayerState.h"
+#include "../include/SlidePlayerState.h"
+*/
 
-PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
+PlayerState* RunRightPlayerState::handleInput(SDL_Event* input)
 {
+
+	/*
 	if (input.getCurrent() == gpp::Events::Event::ATTACK_START_EVENT)
 	{
 		DEBUG_MSG("RunRightPlayerState -> AttackPlayerState");
@@ -49,29 +53,38 @@ PlayerState* RunRightPlayerState::handleInput(gpp::Events& input)
 	else if (input.getCurrent() == gpp::Events::Event::DIED_EVENT) {
 		DEBUG_MSG("RunRightPlayerState -> DiedPlayerState");
 		return new DiedPlayerState();
-	}
+	}*/
 	return nullptr;
 }
+
+bool RunRightPlayerState::repeat()
+{
+	return m_repeat;
+}
+
+bool RunRightPlayerState::onLadder()
+{
+	return m_onLadder;
+}
+
 void RunRightPlayerState::update(Player& player) {}
 void RunRightPlayerState::enter(Player& player)
 {
-	DEBUG_MSG("Entering RunRightPlayerState");
 	player.getAnimatedSprite().clearFrames();
 
-	player.getAnimatedSprite().addFrame(sf::IntRect(4986, 3556, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(5349, 3556, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(5712, 3556, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4986, 4014, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(5349, 4014, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(5712, 4014, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4986, 4472, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(5349, 4472, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(5712, 4472, 363, 458));
-	player.getAnimatedSprite().addFrame(sf::IntRect(4986, 4930, 363, 458));
+	player.getAnimatedSprite().addFrame(4986, 3556, 363, 458);
+	player.getAnimatedSprite().addFrame(5349, 3556, 363, 458);
+	player.getAnimatedSprite().addFrame(5712, 3556, 363, 458);
+	player.getAnimatedSprite().addFrame(4986, 4014, 363, 458);
+	player.getAnimatedSprite().addFrame(5349, 4014, 363, 458);
+	player.getAnimatedSprite().addFrame(5712, 4014, 363, 458);
+	player.getAnimatedSprite().addFrame(4986, 4472, 363, 458);
+	player.getAnimatedSprite().addFrame(5349, 4472, 363, 458);
+	player.getAnimatedSprite().addFrame(5712, 4472, 363, 458);
+	player.getAnimatedSprite().addFrame(4986, 4930, 363, 458);
 
-	player.getAnimatedSpriteFrame().setTime(seconds(0.05f));
 }
 void RunRightPlayerState::exit(Player& player) 
 {
-	DEBUG_MSG("Exiting RunRightPlayerState");
+	
 }
