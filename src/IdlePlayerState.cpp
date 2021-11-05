@@ -33,10 +33,6 @@ PlayerState* IdlePlayerState::handleInput(SDL_Event* input) {
 	{
 		 	return new AccendLadderPlayerState();
 	}
-	else if (input->key.keysym.sym == SDLK_d)
-	{
-		 	return new DecendLadderPlayerState();
-	}
 	else if (input->key.keysym.sym == SDLK_x)
 	{
 		 	return new DiedPlayerState();
@@ -51,7 +47,18 @@ bool IdlePlayerState::onLadder()
 }
 
 void IdlePlayerState::update(Player& player) 
-{}
+{
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size())
+		{
+			player.resetFrame();
+		}
+	}
+
+}
 
 void IdlePlayerState::enter(Player& player) 
 {

@@ -17,7 +17,7 @@ PlayerState* DecendLadderPlayerState::handleInput(SDL_Event* input)
 	{
 		 	return new ClimbUpPlayerState();
 	}
-	else if (input->key.keysym.sym == SDLK_d)
+	else if (input->key.keysym.sym == SDLK_a)
 	{
 		 	return new IdlePlayerState();
 	}
@@ -39,7 +39,17 @@ bool DecendLadderPlayerState::onLadder()
 }
 
 void DecendLadderPlayerState::update(Player& player) 
-{}
+{
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.resetFrame();
+		}
+	}
+}
 
 void DecendLadderPlayerState::enter(Player& player)
 {

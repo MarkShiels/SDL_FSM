@@ -37,7 +37,18 @@ bool AccendLadderPlayerState::onLadder()
 	return m_onLadder;
 }
 
-void AccendLadderPlayerState::update(Player& player) {}
+void AccendLadderPlayerState::update(Player& player) 
+{
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.resetFrame();
+		}
+	}
+}
 
 void AccendLadderPlayerState::enter(Player& player)
 {	

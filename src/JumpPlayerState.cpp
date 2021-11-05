@@ -23,14 +23,15 @@ PlayerState* JumpPlayerState::handleInput(SDL_Event* input)
 void JumpPlayerState::update(Player& player) 
 {
 	
-	/*if (m_clock.getElapsedTime().asSeconds() > 1.2f) {
-		PlayerState* temp = player.getPlayerState();
-		PlayerState* state = new GlidePlayerState();
-		player.getPlayerState()->exit(player);
-		player.setPlayerState(state);
-		player.getPlayerState()->enter(player);
-		delete temp;
-	}*/
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.returnToIdle();
+		}
+	}
 }
 
 bool JumpPlayerState::onLadder()

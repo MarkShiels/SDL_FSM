@@ -12,7 +12,17 @@ PlayerState* JumpThrowAttackPlayerState::handleInput(SDL_Event* input)
 }
 
 void JumpThrowAttackPlayerState::update(Player& player) 
-{}
+{
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.returnToIdle();
+		}
+	}
+}
 
 bool JumpThrowAttackPlayerState::repeat()
 {

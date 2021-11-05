@@ -7,26 +7,21 @@
 //#include "../include/DiedPlayerState.h"
 
 PlayerState* AttackPlayerState::handleInput(SDL_Event* input)
-{
-	/*if (input.getCurrent() == gpp::Events::Event::RUN_RIGHT_START_EVENT)
-	{
-		DEBUG_MSG("AttackPlayerState -> RunRightPlayerState");
-		return new RunRightPlayerState();
-	}
-	else if (input.getCurrent() == gpp::Events::Event::ATTACK_STOP_EVENT)
-	{
-		DEBUG_MSG("AttackPlayerState -> IdlePlayerState");
-		return new IdlePlayerState();
-	}
-	else if (input.getCurrent() == gpp::Events::Event::DIED_EVENT) {
-		DEBUG_MSG("AttackPlayerState -> DiedPlayerState");
-		return new DiedPlayerState();
-	}*/
+{	
 	return nullptr;
 }
+
 void AttackPlayerState::update(Player& player) 
 {
+	if(player.checkTime())
+	{
+		player.incFrame();
 
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.returnToIdle();
+		}
+	}
 }
 
 bool AttackPlayerState::onLadder()

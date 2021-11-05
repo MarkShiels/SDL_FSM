@@ -11,6 +11,7 @@ Player::Player()
 	m_state->enter(*this);
 	m_currentFrame = 0;
 	m_currentTime = 0;
+	m_alive = true;
 }
 
 Player::Player(AnimatedSprite& sprite) : m_animatedSprite(sprite)
@@ -54,30 +55,62 @@ int Player::getCurrentFrame()
 	return m_currentFrame;
 }
 
+void Player::incFrame()
+{
+	++m_currentFrame;
+}
+
+void Player::resetFrame()
+{
+	m_currentFrame = 0;
+}
+
+bool Player::checkTime()
+{
+	if(SDL_GetTicks() > m_currentTime + m_frameDelay)
+	{
+		m_currentTime = SDL_GetTicks();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void Player::update(int t_time) 
 {
 	m_animatedSprite.update();
 	m_state->update(*this);
-
+	
+/*
 	if(SDL_GetTicks() > m_currentTime + m_frameDelay)
-    {
-        ++m_currentFrame;
+    {   
+		++m_currentFrame;
+
         if( m_currentFrame >= m_animatedSprite.getFrames()->size() )
         {
-            m_currentFrame = 0;
-
-            if(!getPlayerState()->repeat() && !getPlayerState()->onLadder())
-            {
-                returnToIdle();
-            }
-			else if(!getPlayerState()->repeat() && getPlayerState()->onLadder())
+			if(m_alive)
+           	{	
+				m_currentFrame = 0;
+				if(!getPlayerState()->repeat() && !getPlayerState()->onLadder())
+				{	
+					returnToIdle();
+				}
+				else if(!getPlayerState()->repeat() && getPlayerState()->onLadder())
+				{		
+					returnToLadder();
+				}
+			}
+			else
 			{
-				returnToLadder();
+				m_currentFrame = m_animatedSprite.getFrames()->size() - 1;
 			}
         }
 
         m_currentTime = SDL_GetTicks();
     }
+*/
 }
 
 AnimatedSprite& Player::getAnimatedSprite() 

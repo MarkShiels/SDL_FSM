@@ -9,22 +9,6 @@
 
 PlayerState* ThrowAttackPlayerState::handleInput(SDL_Event* input)
 {
-	/*
-	if (input.getCurrent() == gpp::Events::Event::RUN_RIGHT_START_EVENT)
-	{
-		DEBUG_MSG("AttackPlayerState -> RunRightPlayerState");
-		return new RunRightPlayerState();
-	}
-	else if (input.getCurrent() == gpp::Events::Event::THROW_STOP_EVENT)
-	{
-		DEBUG_MSG("AttackPlayerState -> IdlePlayerState");
-		return new IdlePlayerState();
-	}
-	else if (input.getCurrent() == gpp::Events::Event::DIED_EVENT) {
-		DEBUG_MSG("ThrowAttackPlayerState -> DiedPlayerState");
-		return new DiedPlayerState();
-	}
-	*/
 	return nullptr;
 }
 
@@ -38,7 +22,19 @@ bool ThrowAttackPlayerState::onLadder()
 	return m_onLadder;
 }
 
-void ThrowAttackPlayerState::update(Player& player) {}
+void ThrowAttackPlayerState::update(Player& player) 
+{
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.returnToIdle();
+		}
+	}
+}
+
 void ThrowAttackPlayerState::enter(Player& player)
 {
 	player.getAnimatedSprite().clearFrames();

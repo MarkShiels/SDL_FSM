@@ -25,7 +25,17 @@ bool ClimbDownPlayerState::onLadder()
 }
 
 void ClimbDownPlayerState::update(Player& player) 
-{}
+{
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.returnToLadder();
+		}
+	}
+}
 
 void ClimbDownPlayerState::enter(Player& player)
 {

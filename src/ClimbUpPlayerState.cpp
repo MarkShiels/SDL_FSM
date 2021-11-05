@@ -13,7 +13,16 @@ PlayerState* ClimbUpPlayerState::handleInput(SDL_Event* input)
 }
 
 void ClimbUpPlayerState::update(Player& player) 
-{}
+{ 
+	if(player.checkTime())
+	{
+		player.incFrame();
+
+		if(player.getCurrentFrame() >= player.getAnimatedSprite().getFrames()->size() -1)
+		{
+			player.returnToLadder();
+		}
+	}}
 
 bool ClimbUpPlayerState::repeat()
 {

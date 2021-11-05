@@ -23,6 +23,9 @@ public:
 	void returnToLadder();
 	void setAlive(bool t_bool);
 	bool getAlive();
+	void incFrame();
+	void resetFrame();
+	bool checkTime();
 
 private:
 
